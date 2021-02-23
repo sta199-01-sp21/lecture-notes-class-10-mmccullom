@@ -64,10 +64,12 @@ xtabs(~ Treatment + Improved, data = Arthritis) %>%
 - What is the probability a randomly selected patient received the placebo
   and the treatment?
   
-  
+  0%
   
 - What is the probability a randomly selected patient had some improvement or
   was on the treatment?
+  
+  48/84 or 57%
 
 ## Using computer simulations to calculate probabilities
 
@@ -83,6 +85,10 @@ marbles <- c("red", "red", "white", "red", "blue", "blue", "red", "blue")
 Suppose we draw a single marble from our imaginary box, where all the marbles
 are equally likely to be selected. What is the probability the marble is blue? 
 How about white?
+
+-Red: 50%
+-Blue: 37.5%
+-White 12.5%
 
 We can simulate this "drawing" with the `sample()` function.
 
@@ -110,6 +116,8 @@ prop.table(counts)
 
 How close is this value to the "true" probability?
 
+The value is in the range of +-0.5% of the true probability.
+
 **To summarize our process:**
 
 1. We defined the sample space for our experiment - `marbles`
@@ -125,6 +133,8 @@ color if we make two draws with replacement? We haven't discussed how to
 compute this theoretically yet, but this is what computers are good at.
 
 Before we do this, what is your guess as to what the probability will be?
+
+It should be (4/8)(4/8) for red and (3/8)(3/8) for blue, and adding these together we should get around a 39% chance.
 
 We'll still use `sample()` to run our simulation many times, but we'll
 use `dplyr` functions to compute the relative frequencies.
@@ -165,16 +175,31 @@ Perform a simulation to compute this empirical probability.
 
 Write down your guess to the answer before you calculate it.
 
-```{r simulate_rolls}
+The first of these two scenarios is only applicabable when die 1 has a 1 or a 2 and die 2 has a 1 or a 4. The probability of this is (1/6)(1/6)+(1/6)(1/6), or 5.5%. The second of these scenarios occurs for combinations 1 and 5, 2 and 6, 5 and 1, and 6 and 2. This will get us a probability of 4(1/6*1/6), or 11%.
 
+```{r simulate_rolls}
+die <- c(1, 2, 3, 4, 5, 6)
+two_dice_results <- tibble(
+  die1 = sample(die, size=10000, replace=TRUE),
+  die2 = sample(die, size=10000, replace=TRUE)
+)
 ```
 
 ```{r identify_events}
+two_dice_results <- two_dice_results%>%
+  mutate(condition1 = die1^2==die2)%>%
+  mutate(condition2 = abs(die1-die2)==4)
 
 ```
 
 ```{r summarize_rolls}
+two_dice_results%>%
+  count(condition1)%>%
+  mutate(proportion = n/sum(n))
 
+two_dice_results%>%
+  count(condition2)%>%
+  mutate(proportion = n/sum(n))
 ```
 
 ## Additional Resources-please look at before Weds.
