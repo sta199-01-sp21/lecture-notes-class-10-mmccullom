@@ -1,7 +1,7 @@
 ---
 title: "Introduction to probability"
-author: ""
-date: ""
+author: "Michael McCullom"
+date: "2-23-2021"
 output: html_document
 editor_options: 
   chunk_output_type: console
@@ -50,13 +50,21 @@ xtabs(~ Treatment + Improved, data = Arthritis) %>%
 
 - How many patients were enrolled in the clinical trial?
 
+  84 total patients were enrolled
+
 - What is the probability a randomly selected patient received the placebo?
+
+  43/84 or 51%
 
 - What is the probability a randomly selected patient received the placebo
   and had a marked improvement?
   
+  7/84 or 8.3%
+  
 - What is the probability a randomly selected patient received the placebo
   and the treatment?
+  
+  
   
 - What is the probability a randomly selected patient had some improvement or
   was on the treatment?
