@@ -204,4 +204,4 @@ two_dice_results%>%
 
 ## Additional Resources-please look at before Weds.
 
-- [Open Intro Stats](https://www.openintro.org/book/os/) Sections 3.1 and 3.2
+- [Open Intro Stats](https://www.openintro.org/book/os/)
